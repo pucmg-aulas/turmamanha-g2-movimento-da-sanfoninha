@@ -27,17 +27,6 @@ public class Cliente {
         return null;
     }
 
-    public int totalDeUsos() {
-        return veiculos.stream().mapToInt(Veiculo::totalDeUsos).sum();
-    }
-
-    public double arrecadacaoPorVeiculo(String placa) {
-        Veiculo veiculo = possuiVeiculo(placa);
-        if (veiculo != null) {
-            return veiculo.totalDeUsos() * UsoDeVaga.VALOR_FRACAO;
-        }
-        return 0;
-    }
 
     public String getNome() {
         return this.nome;
