@@ -28,10 +28,5 @@ public class App {
         estacionamento.sair("ABC-1234");
         estacionamento.sair("XYZ-5678"); 
 
-        System.out.println("Total de usos de Rayssa: " + cliente1.totalDeUsos());
-        System.out.println("Arrecadação total por veículo de Rayssa: R$ " + cliente1.arrecadacaoPorVeiculo("ABC-1234"));
-
-        System.out.println("Total de usos de Giovanna: " + cliente2.totalDeUsos());
-        System.out.println("Arrecadação total por veículo de Giovanna: R$ " + cliente2.arrecadacaoPorVeiculo("XYZ-5678"));
     }
 }
