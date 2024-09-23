@@ -20,12 +20,7 @@ public class Veiculo {
         return usos.size();
     }
 
-    public void estacionar(Vaga vaga) {
-        usos.add(new UsoDeVaga(vaga));
-    }
-
-    public double sair() {
-        UsoDeVaga ultimoUso = usos.get(usos.size() - 1);
-        return ultimoUso.sair();
+    public void adicionarUso(UsoDeVaga uso) {
+        usos.add(uso);
     }
 }

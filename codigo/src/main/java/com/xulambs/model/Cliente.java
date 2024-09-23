@@ -5,61 +5,35 @@ import java.util.List;
 
 public class Cliente {
     private String nome;
-    private String id;
     private List<Veiculo> veiculos;
 
-    public Cliente(String nome, String id) {
+    public Cliente(String nome) {
         this.nome = nome;
-        this.id = id;
         this.veiculos = new ArrayList<>();
     }
 
-    public void adicionarVeiculo(Veiculo veiculo) {
-        veiculos.add(veiculo);
-    }
-
-    public Veiculo possuiVeiculo(String placa) {
-        for (Veiculo veiculo : veiculos) {
-            if (veiculo.getPlaca().equals(placa)) {
-                return veiculo;
-            }
-        }
-        return null;
-    }
-
-    public int totalDeUsos() {
-        return veiculos.stream().mapToInt(Veiculo::totalDeUsos).sum();
-    }
-
-    public double arrecadacaoPorVeiculo(String placa) {
-        Veiculo veiculo = possuiVeiculo(placa);
-        if (veiculo != null) {
-            return veiculo.totalDeUsos() * UsoDeVaga.VALOR_FRACAO;
-        }
-        return 0;
-    }
-
     public String getNome() {
-        return this.nome;
+        return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public List<Veiculo> getVeiculos() {
-        return this.veiculos;
+        return veiculos;
     }
 
-    public void setVeiculos(List<Veiculo> veiculos) {
-        this.veiculos = veiculos;
+    public void adicionarVeiculo(Veiculo veiculo) {
+        veiculos.add(veiculo);
+    }
+
+    public Veiculo possuiVeiculoEstacionado(String placa) {
+        for (Veiculo veiculo : veiculos) {
+            if (veiculo.getPlaca().equals(placa)) {
+                return veiculo;
+            }
+        }
+        return null;
     }
 }

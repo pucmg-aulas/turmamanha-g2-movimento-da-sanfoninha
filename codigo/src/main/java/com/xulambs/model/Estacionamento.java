@@ -1,11 +1,19 @@
 package com.xulambs.model;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Estacionamento {
     private String nome;
+    private Vaga[][] vagas;
+    private int quantidadeFileiras;
+    private int vagasPorFileira;
+
+    public Estacionamento(String nome, int fileiras, int vagasPorFila) {
+        this.nome = nome;
+        this.quantidadeFileiras = fileiras;
+        this.vagasPorFileira = vagasPorFila;
+        this.vagas = new Vaga[fileiras][vagasPorFila];
+        gerarVagas();
+    }
+
     public String getNome() {
         return nome;
     }
@@ -14,57 +22,41 @@ public class Estacionamento {
         this.nome = nome;
     }
 
-    private List<Cliente> clientes;
-    private List<Vaga> vagas;
-    private int quantidadeFileiras;
-    private int vagasPorFileira;
-
-    public Estacionamento(String nome, int fileiras, int vagasPorFila) {
-        this.nome = nome;
-        this.quantidadeFileiras = fileiras;
-        this.vagasPorFileira = vagasPorFila;
-        this.clientes = new ArrayList<>();
-        this.vagas = new ArrayList<>();
-        gerarVagas();
-    }
-
-    public void adicionarCliente(Cliente cliente) {
-        clientes.add(cliente);
-    }
-
-    public void adicionarVeiculo(Veiculo veiculo, String idCliente) {
-        Cliente cliente = buscarClientePorId(idCliente);
-        if (cliente != null) {
-            cliente.adicionarVeiculo(veiculo);
-        }
-    }
-
-    public Cliente buscarClientePorId(String id) {
-        return clientes.stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
-    }
-
-    private void gerarVagas() {
-        for (int i = 1; i <= quantidadeFileiras; i++) {
-            for (int j = 1; j <= vagasPorFileira; j++) {
-                vagas.add(new Vaga(i, j));
+    public void gerarVagas() {
+        for (int i = 0; i < quantidadeFileiras; i++) {
+            for (int j = 0; j < vagasPorFileira; j++) {
+                vagas[i][j] = new Vaga(i, j);
             }
         }
     }
 
-    public void estacionar(String placa) {
-        Vaga vaga = vagas.stream().filter(Vaga::isDisponivel).findFirst().orElse(null);
-        if (vaga != null) {
-            System.out.println("Estacionando o veículo na vaga: " + vaga.getId());
-        } else {
-            System.out.println("Não há vagas disponíveis.");
+    public void estacionar(Veiculo veiculo) {        for (int i = 0; i < quantidadeFileiras; i++) {
+            for (int j = 0; j < vagasPorFileira; j++) {
+                if (vagas[i][j].isDisponivel()) {
+                    vagas[i][j].estacionar(veiculo, null);
+                    System.out.println("Veículo com placa " + veiculo.getPlaca() + " estacionado na vaga [" + i + "][" + j + "].");
+                    return;
+                }
+            }
         }
+        System.out.println("Estacionamento cheio. Não foi possível estacionar o veículo de placa " + veiculo.getPlaca() + ".");
     }
 
     public void sair(String placa) {
-        System.out.println("Veículo saiu da vaga.");
+        for (int i = 0; i < quantidadeFileiras; i++) {
+            for (int j = 0; j < vagasPorFileira; j++) {
+                if (!vagas[i][j].isDisponivel() && vagas[i][j].getVeiculo().getPlaca().equals(placa)) {
+                    vagas[i][j].sair();
+                    System.out.println("Veículo com placa " + placa + " saiu da vaga [" + i + "][" + j + "].");
+                    return;
+                }
+            }
+        }
+        System.out.println("Veículo com placa " + placa + " não encontrado no estacionamento.");
     }
 
-    public void valorPorUso() {
-        // Implementar lógica para calcular valor de estacionamento
+    public void valorPorUso(String placa, double valorHora, int horasUsadas) {
+        double valorFinal = valorHora * horasUsadas;
+        System.out.println("Veículo com placa " + placa + " deve pagar R$" + valorFinal + " por " + horasUsadas + " horas de uso.");
     }
 }

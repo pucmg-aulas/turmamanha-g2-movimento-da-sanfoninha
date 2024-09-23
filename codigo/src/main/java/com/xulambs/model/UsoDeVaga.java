@@ -1,11 +1,13 @@
 package com.xulambs.model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class UsoDeVaga {
-    public static final double FRACAO_USO = 0.15;
-    public static final double VALOR_FRACAO = 4.0;
-    public static final double VALOR_MAXIMO = 50.0;
+    private static final double FRACAO_USO = 0.15;
+    private static final double VALOR_FRACAO = 4.0;
+    private static final double VALOR_MAXIMO = 50.0;
 
     private Vaga vaga;
     private LocalDateTime entrada;
@@ -15,14 +17,21 @@ public class UsoDeVaga {
     public UsoDeVaga(Vaga vaga) {
         this.vaga = vaga;
         this.entrada = LocalDateTime.now();
-        this.vaga.estacionar();
     }
 
-    public double sair() {
+    public void registrarSaida() {
         this.saida = LocalDateTime.now();
-        vaga.sair();
+        calcularValor();
+    }
+
+    private void calcularValor() {
         long minutos = java.time.Duration.between(entrada, saida).toMinutes();
-        valorPago = Math.min(VALOR_MAXIMO, (minutos / 60.0) * VALOR_FRACAO);
+        double fracoes = minutos / (60.0 * FRACAO_USO);
+        this.valorPago = Math.min(fracoes * VALOR_FRACAO, VALOR_MAXIMO);
+    }
+
+    public double getValorPago() {
         return valorPago;
     }
 }
+
