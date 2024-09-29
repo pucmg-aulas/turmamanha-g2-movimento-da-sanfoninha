@@ -20,7 +20,15 @@ public class Veiculo {
         return usos.size();
     }
 
-    public void adicionarUso(UsoDeVaga uso) {
+    public void adicionarUsoDeVaga(UsoDeVaga uso) {
         usos.add(uso);
+    }
+
+    public double calcularValorTotal() {
+        double valorTotal = 0;
+        for (UsoDeVaga uso : usos) {
+            valorTotal += uso.getValorPago();  // Delegar o cálculo para UsoDeVaga
+        }
+        return valorTotal;
     }
 }
