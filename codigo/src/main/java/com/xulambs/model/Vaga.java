@@ -38,7 +38,7 @@ public class Vaga {
         this.veiculo = veiculo;
     }
 
-    public boolean estacionar(Veiculo veiculo) {
+    public boolean estacionar(Veiculo veiculo, Cliente cliente) {
         if (disponivel) {
             this.veiculo = veiculo;
             this.cliente = cliente;

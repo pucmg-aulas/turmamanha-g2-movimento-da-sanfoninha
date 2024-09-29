@@ -30,30 +30,30 @@ public class Estacionamento {
         }
     }
 
-    public void estacionar(Veiculo veiculo) {        for (int i = 0; i < quantidadeFileiras; i++) {
-            for (int j = 0; j < vagasPorFileira; j++) {
-                if (vagas[i][j].isDisponivel()) {
-                    vagas[i][j].estacionar(veiculo, null);
-                    System.out.println("Veículo com placa " + veiculo.getPlaca() + " estacionado na vaga [" + i + "][" + j + "].");
-                    return;
-                }
-            }
-        }
-        System.out.println("Estacionamento cheio. Não foi possível estacionar o veículo de placa " + veiculo.getPlaca() + ".");
-    }
+ public void estacionar(Veiculo veiculo) {        for (int i = 0; i < quantidadeFileiras; i++) {
+         for (int j = 0; j < vagasPorFileira; j++) {
+             if (vagas[i][j].isDisponivel()) {
+                 vagas[i][j].estacionar(veiculo, null);
+                 System.out.println("Veículo com placa " + veiculo.getPlaca() + " estacionado na vaga [" + i + "][" + j + "].");
+                 return;
+             }
+         }
+     }
+     System.out.println("Estacionamento cheio. Não foi possível estacionar o veículo de placa " + veiculo.getPlaca() + ".");
+ }
 
-    public void sair(String placa) {
-        for (int i = 0; i < quantidadeFileiras; i++) {
-            for (int j = 0; j < vagasPorFileira; j++) {
-                if (!vagas[i][j].isDisponivel() && vagas[i][j].getVeiculo().getPlaca().equals(placa)) {
-                    vagas[i][j].sair();
-                    System.out.println("Veículo com placa " + placa + " saiu da vaga [" + i + "][" + j + "].");
-                    return;
-                }
-            }
-        }
-        System.out.println("Veículo com placa " + placa + " não encontrado no estacionamento.");
-    }
+ public void sair(String placa) {
+     for (int i = 0; i < quantidadeFileiras; i++) {
+         for (int j = 0; j < vagasPorFileira; j++) {
+             if (!vagas[i][j].isDisponivel() && vagas[i][j].getVeiculo().getPlaca().equals(placa)) {
+                 vagas[i][j].sair();
+                 System.out.println("Veículo com placa " + placa + " saiu da vaga [" + i + "][" + j + "].");
+                 return;
+             }
+         }
+     }
+     System.out.println("Veículo com placa " + placa + " não encontrado no estacionamento.");
+ }
 
     public void valorPorUso(String placa, double valorHora, int horasUsadas) {
         double valorFinal = valorHora * horasUsadas;
