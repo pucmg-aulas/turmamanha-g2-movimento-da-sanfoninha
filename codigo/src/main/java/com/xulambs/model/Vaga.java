@@ -3,53 +3,42 @@ package com.xulambs.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import com.xulambs.model.Cliente;
 
 public class Vaga {
+    private int fila;
+    private int numero;
     private boolean disponivel;
     private Veiculo veiculo;
+    private Cliente cliente;
+
+    public Vaga(int fila, int numero) {
+    this.fila = fila;
+    this.numero = numero;
+    this.disponivel = true;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+    
     public Veiculo getVeiculo() {
         return veiculo;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
 
-    private Cliente cliente;
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    private int fila;
-    public int getFila() {
-        return fila;
-    }
-
-    public void setFila(int fila) {
-        this.fila = fila;
-    }
-
-    private int numero;
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
-    public Vaga(int fila, int numero) {
-        this.fila = fila;
-        this.numero = numero;
-        this.disponivel = true;
-    }
-
-    public boolean estacionar(Veiculo veiculo, Cliente cliente) {
+    public boolean estacionar(Veiculo veiculo) {
         if (disponivel) {
             this.veiculo = veiculo;
             this.cliente = cliente;
