@@ -33,7 +33,23 @@ public class Vaga {
     public Cliente getCliente() {
         return cliente;
     }
+    
+    public String getTamanho() {
+        return tamanho;
+    }
 
+    public double getValorDesconto() {
+        return valorDesconto;
+    }
+    
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public void setValorDesconto(double valorDesconto) {
+        this.valorDesconto = valorDesconto;
+    }
+    
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }
