@@ -1,35 +1,11 @@
 package com.xulambs.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 public class VagaVIP extends Vaga {
     private String tamanho; // Ex: Pequena, Média, Grande
     private double valorDesconto; // Valor do desconto específico para a vaga VIP
 
-    public VagaVIP(int fila, int numero, String tipoDesconto, boolean necessitaAcompanhante, 
-        String tamanho, double valorDesconto) {
-            super(fila, numero, tipoDesconto); // Chama o construtor da classe Vaga
-            this.tamanho = tamanho;
-            this.valorDesconto = valorDesconto;
-    }
-
-    // Getters e Setters para os novos atributos
-    public String getTamanho() {
-        return tamanho;
-    }
-
-    public double getValorDesconto() {
-        return valorDesconto;
-    }
-    
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
-    }
-
-    public void setValorDesconto(double valorDesconto) {
-        this.valorDesconto = valorDesconto;
+    public VagaVIP(int fila, int numero, String tipoDesconto, String tamanho, double valorDesconto) {
+            super(fila, numero, tipoDesconto, tamanho, valorDesconto); // Chama o construtor da classe Vaga
     }
 
     // Método para estacionar um veículo, verificando se a vaga é destinada para VIP
