@@ -5,25 +5,8 @@ public class VagaPCD extends Vaga {
     private double valorDesconto; // Valor do desconto específico para a vaga PCD
 
     public VagaPCD(int fila, int numero, String tipoDesconto, String tamanho, double valorDesconto) {
-        super(fila, numero, tipoDesconto); // Chama o construtor da classe Vaga
+        super(fila, numero, tipoDesconto, tamanho, valorDesconto); // Chama o construtor da classe Vaga
         this.tamanho = tamanho;
-        this.valorDesconto = valorDesconto;
-    }
-
-    // Getters e Setters para os novos atributos
-    public String getTamanho() {
-        return tamanho;
-    }
-
-    public double getValorDesconto() {
-        return valorDesconto;
-    }
-
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
-    }
-    
-    public void setValorDesconto(double valorDesconto) {
         this.valorDesconto = valorDesconto;
     }
 
