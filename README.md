@@ -8,6 +8,7 @@ Escreva um ou dois parágrafos resumindo o objetivo do seu projeto.
 * Giovanna Lima Torres Guasch
 * Maria Clara de Oliveira Silva
 * Rayssa Pierre da Silva Ramiro
+* João Francisco Rodrigues Abdanur Porto
 
 ## Professor responsável 
 
