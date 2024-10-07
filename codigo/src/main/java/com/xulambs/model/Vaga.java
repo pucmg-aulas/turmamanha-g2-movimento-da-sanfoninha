@@ -11,6 +11,7 @@ public class Vaga {
     private boolean disponivel;
     private Veiculo veiculo;
     private Cliente cliente;
+    private double ValorDesconto;
 
     public Vaga(int fila, int numero) {
     this.fila = fila;
@@ -33,17 +34,9 @@ public class Vaga {
     public Cliente getCliente() {
         return cliente;
     }
-    
-    public String getTamanho() {
-        return tamanho;
-    }
 
     public double getValorDesconto() {
         return valorDesconto;
-    }
-    
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
     }
 
     public void setValorDesconto(double valorDesconto) {
