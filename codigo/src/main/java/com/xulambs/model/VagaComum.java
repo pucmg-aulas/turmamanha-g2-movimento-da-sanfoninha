@@ -1,27 +1,18 @@
 package com.xulambs.model;
 
-public class VagaComum extends Vaga {
-    private String tamanho; // Ex: Pequena, Média, Grande
+public class VagaComum extends Vaga { // Ex: Pequena, Média, Grande
     private double valorDesconto; // Valor do desconto específico para a vaga comum
 
-    public VagaComum(int fila, int numero, String tipoDesconto, String tamanho, double valorDesconto) {
+    public VagaComum(int fila, int numero, String tipoDesconto, double valorDesconto) {
         super(fila, numero, tipoDesconto); // Chama o construtor da classe Vaga
-        this.tamanho = tamanho;
         this.valorDesconto = valorDesconto;
     }
 
-    // Getters e Setters
-    public String getTamanho() {
-        return tamanho;
-    }
 
     public double getValorDesconto() {
         return valorDesconto;
     }
 
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
-    }
 
     public void setValorDesconto(double valorDesconto) {
         this.valorDesconto = valorDesconto;

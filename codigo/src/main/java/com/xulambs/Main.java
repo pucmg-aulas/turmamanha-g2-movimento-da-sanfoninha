@@ -1,48 +1,133 @@
 import com.xulambs.model.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Estacionamento estacionamento = new Estacionamento("Estacionamento", 3, 5);
+        Scanner scanner = new Scanner(System.in);
+        Estacionamento estacionamento = new Estacionamento("Estacionamento Central", 3, 5);
+        List<Cliente> clientes = new ArrayList<>();
 
-        Cliente cliente1 = new Cliente("Giovanna");
-        Cliente cliente2 = new Cliente("Debora");
-        Cliente cliente3 = new Cliente("Maria Clara");
+        while (true) {
+            System.out.println("\n--- Menu do Estacionamento ---");
+            System.out.println("1. Adicionar Cliente");
+            System.out.println("2. Adicionar Veículo ao Cliente");
+            System.out.println("3. Estacionar Veículo");
+            System.out.println("4. Sair do Estacionamento");
+            System.out.println("5. Mostrar Vagas Disponíveis");
+            System.out.println("6. Calcular Valor de Uso");
+            System.out.println("0. Sair do Programa");
+            System.out.print("Escolha uma opção: ");
+            
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir a quebra de linha
 
-        Veiculo veiculo1 = new Veiculo("ABC-1234");
-        Veiculo veiculo2 = new Veiculo("XYZ-5678");
-        Veiculo veiculo3 = new Veiculo("DEF-1478");
+            switch (opcao) {
+                case 1:
+                    // Adicionar Cliente
+                    System.out.print("Digite o nome do cliente: ");
+                    String nome = scanner.nextLine();
+                    System.out.print("Digite o CPF do cliente: ");
+                    String cpf = scanner.nextLine();
 
-        cliente1.adicionarVeiculo(veiculo1);
-        cliente2.adicionarVeiculo(veiculo2);
-        cliente3.adicionarVeiculo(veiculo3);
+                    // Escolher categoria
+                    System.out.println("Escolha a categoria do cliente:");
+                    System.out.println("1. VIP");
+                    System.out.println("2. Idoso");
+                    System.out.println("3. PCD");
+                    System.out.println("4. Comum");
+                    System.out.print("Escolha uma opção: ");
+                    int categoriaOpcao = scanner.nextInt();
+                    scanner.nextLine(); // Consumir a quebra de linha
+                    String categoria;
 
-        System.out.println("Estacionando o veículo ABC-1234");
-        estacionamento.estacionar(veiculo1);
-        System.out.println();
+                    switch (categoriaOpcao) {
+                        case 1:
+                            categoria = "VIP";
+                            break;
+                        case 2:
+                            categoria = "Idoso";
+                            break;
+                        case 3:
+                            categoria = "PCD";
+                            break;
+                        default:
+                            categoria = "Comum"; // Categoria padrão
+                            break;
+                    }
 
-        System.out.println("Estacionando o veículo XYZ-5678");
-        estacionamento.estacionar(veiculo2);
-        System.out.println();
+                    Cliente cliente = new Cliente(nome, cpf, categoria);
+                    clientes.add(cliente);
+                    System.out.println("Cliente " + nome + " adicionado com sucesso!");
+                    break;
 
-        System.out.println("Estacionando o veículo DEF-1478");
-        estacionamento.estacionar(veiculo3);
-        System.out.println();
+                case 2:
+                    // Adicionar Veículo ao Cliente
+                    System.out.println("Clientes disponíveis:");
+                    for (int i = 0; i < clientes.size(); i++) {
+                        System.out.println(i + 1 + ". " + clientes.get(i).getNome());
+                    }
+                    System.out.print("Escolha o cliente (número): ");
+                    int clienteIndex = scanner.nextInt() - 1;
+                    scanner.nextLine(); // Consumir a quebra de linha
 
-        System.out.println("Saída do veículo ABC-1234");
-        estacionamento.sair("ABC-1234");
-        System.out.println();
+                    if (clienteIndex >= 0 && clienteIndex < clientes.size()) {
+                        System.out.print("Digite a placa do veículo: ");
+                        String placa = scanner.nextLine();
+                        clientes.get(clienteIndex).adicionarVeiculo(new Veiculo(placa));
+                    } else {
+                        System.out.println("Cliente inválido.");
+                    }
+                    break;
 
-        System.out.println("Calculando valor do uso de vaga para o veículo ABC-1234");
-        estacionamento.valorPorUso("ABC-1234", 4.0, 3);
-        System.out.println();
+                case 3:
+                    // Estacionar Veículo
+                    System.out.print("Digite a placa do veículo que deseja estacionar: ");
+                    String placaEstacionar = scanner.nextLine();
+                    Veiculo veiculoEstacionar = new Veiculo(placaEstacionar);
+                    estacionamento.estacionar(veiculoEstacionar);
+                    break;
 
-        System.out.println("Calculando valor do uso de vaga para o veículo XYZ-5678");
-        estacionamento.valorPorUso("XYZ-5678", 4.0, 4);
-        System.out.println();
+                case 4:
+                    // Sair do Estacionamento
+                    System.out.print("Digite a placa do veículo que deseja retirar: ");
+                    String placaSair = scanner.nextLine();
+                    estacionamento.sair(placaSair);
+                    break;
 
-        System.out.println("Calculando valor do uso de vaga para o veículo  DEF-1478");
-        estacionamento.valorPorUso(" DEF-1478", 4.0, 2);
-        System.out.println();
+                case 5:
+                    // Mostrar Vagas Disponíveis
+                    System.out.println("Vagas disponíveis:");
+                    for (int i = 0; i < estacionamento.quantidadeFileiras; i++) {
+                        for (int j = 0; j < estacionamento.vagasPorFileira; j++) {
+                            if (estacionamento.vagas[i][j].isDisponivel()) {
+                                System.out.println("Vaga [" + i + "][" + j + "] - Disponível");
+                            }
+                        }
+                    }
+                    break;
 
+                case 6:
+                    // Calcular Valor de Uso
+                    System.out.print("Digite a placa do veículo para calcular o valor: ");
+                    String placaCalcular = scanner.nextLine();
+                    double valorPorHora = 4.0; // exemplo de valor por hora
+                    System.out.print("Digite a quantidade de horas usadas: ");
+                    int horasUsadas = scanner.nextInt();
+                    double valorTotal = estacionamento.valorPorUso(placaCalcular, valorPorHora, horasUsadas);
+                    System.out.println("Valor total a ser pago: R$ " + valorTotal);
+                    break;
+
+                case 0:
+                    System.out.println("Saindo do programa. Até logo!");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+        }
     }
 }

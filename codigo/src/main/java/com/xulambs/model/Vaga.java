@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import com.xulambs.model.Cliente;
 
+//classe abstrata
 public class Vaga {
     private int fila;
     private int numero;

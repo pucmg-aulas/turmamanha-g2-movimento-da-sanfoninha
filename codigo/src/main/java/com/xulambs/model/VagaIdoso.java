@@ -1,27 +1,17 @@
 package com.xulambs.model;
 
 public class VagaIdoso extends Vaga {
-    private String tamanho; // Ex: Pequena, Média, Grande
     private double valorDesconto; // Valor do desconto específico para a vaga Idoso
 
-    public VagaIdoso(int fila, int numero, String tipoDesconto, String tamanho, double valorDesconto) {
+    public VagaIdoso(int fila, int numero, String tipoDesconto, double valorDesconto) {
         super(fila, numero, tipoDesconto); // Chama o construtor da classe Vaga
-        this.tamanho = tamanho;
         this.valorDesconto = valorDesconto;
-    }
-
-    // Getters e Setters
-    public String getTamanho() {
-        return tamanho;
     }
 
     public double getValorDesconto() {
         return valorDesconto;
     }
 
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
-    }
 
     public void setValorDesconto(double valorDesconto) {
         this.valorDesconto = valorDesconto;
@@ -31,7 +21,7 @@ public class VagaIdoso extends Vaga {
     @Override
     public boolean estacionar(Veiculo veiculo) {
         if (isDisponivel() && veiculo.isIdoso()) { // Verifica se o veículo pertence a um cliente idoso
-            super.estacionar(veiculo, cliente); // Chama o método da classe pai para estacionar
+            super.estacionar(veiculo, Cliente); // Chama o método da classe pai para estacionar
             System.out.println("Estacionamento reservado para Idoso. Desconto aplicado: R$ " + valorDesconto);
             return true;
         }

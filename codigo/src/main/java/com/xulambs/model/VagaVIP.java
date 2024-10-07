@@ -5,28 +5,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class VagaVIP extends Vaga {
-    private String tamanho; // Ex: Pequena, Média, Grande
     private double valorDesconto; // Valor do desconto específico para a vaga VIP
 
-    public VagaVIP(int fila, int numero, String tipoDesconto, boolean necessitaAcompanhante, 
-        String tamanho, double valorDesconto) {
+    public VagaVIP(int fila, int numero, String tipoDesconto, boolean necessitaAcompanhante, double valorDesconto) {
             super(fila, numero, tipoDesconto); // Chama o construtor da classe Vaga
-            this.tamanho = tamanho;
             this.valorDesconto = valorDesconto;
-    }
-
-    // Getters e Setters para os novos atributos
-    public String getTamanho() {
-        return tamanho;
     }
 
     public double getValorDesconto() {
         return valorDesconto;
     }
     
-    public void setTamanho(String tamanho) {
-        this.tamanho = tamanho;
-    }
 
     public void setValorDesconto(double valorDesconto) {
         this.valorDesconto = valorDesconto;
@@ -36,7 +25,7 @@ public class VagaVIP extends Vaga {
     @Override
     public boolean estacionar(Veiculo veiculo) {
         if (isDisponivel() && veiculo.isVip()) { // Verifica se o veículo pertence a um cliente VIP
-            super.estacionar(veiculo, cliente); // Chama o método da classe pai para estacionar
+            super.estacionar(veiculo, Cliente); // Chama o método da classe pai para estacionar
             System.out.println("Estacionamento reservado para VIP. Aumento aplicado: R$ " + valorDesconto);
             return true;
         }

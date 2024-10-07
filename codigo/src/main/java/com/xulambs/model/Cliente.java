@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public class Cliente {
     private String nome;
-    private String cpf;  // Alterado de "identificador" para "cpf"
+    private String cpf;
     private ArrayList<Veiculo> veiculos;
     private boolean anonimo;
+    private String categoria; // Novo atributo
 
-    public Cliente(String nome, String cpf) {
+    public Cliente(String nome, String cpf, String categoria) {
         this.nome = nome;
         this.cpf = cpf;
         this.veiculos = new ArrayList<>();
         this.anonimo = false;
+        this.categoria = categoria; // Inicializa a categoria
     }
 
     public Cliente() {
@@ -20,6 +22,7 @@ public class Cliente {
         this.cpf = "00000000000";  // Exemplo de CPF fictício para cliente anônimo
         this.veiculos = new ArrayList<>();
         this.anonimo = true;
+        this.categoria = "Anônimo"; // Categoria para anônimo
     }
 
     public void adicionarVeiculo(Veiculo veiculo) {
@@ -79,5 +82,13 @@ public class Cliente {
 
     public ArrayList<Veiculo> getVeiculos() {
         return veiculos;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 }
