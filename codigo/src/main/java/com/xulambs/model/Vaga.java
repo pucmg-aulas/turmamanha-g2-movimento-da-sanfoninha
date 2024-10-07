@@ -12,6 +12,7 @@ public class Vaga {
     private boolean disponivel;
     private Veiculo veiculo;
     private Cliente cliente;
+    private double ValorDesconto;
 
     public Vaga(int fila, int numero) {
     this.fila = fila;
@@ -35,6 +36,14 @@ public class Vaga {
         return cliente;
     }
 
+    public double getValorDesconto() {
+        return valorDesconto;
+    }
+
+    public void setValorDesconto(double valorDesconto) {
+        this.valorDesconto = valorDesconto;
+    }
+    
     public void setVeiculo(Veiculo veiculo) {
         this.veiculo = veiculo;
     }

@@ -1,9 +1,5 @@
 package com.xulambs.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 public class VagaVIP extends Vaga {
     private double valorDesconto; // Valor do desconto específico para a vaga VIP
 
@@ -18,8 +14,8 @@ public class VagaVIP extends Vaga {
     
 
     public void setValorDesconto(double valorDesconto) {
-        this.valorDesconto = valorDesconto;
-    }
+        this.valorDesconto = valorDesconto;}
+
 
     // Método para estacionar um veículo, verificando se a vaga é destinada para VIP
     @Override

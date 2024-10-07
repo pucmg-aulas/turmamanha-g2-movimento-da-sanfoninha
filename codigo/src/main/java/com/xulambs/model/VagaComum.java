@@ -3,6 +3,7 @@ package com.xulambs.model;
 public class VagaComum extends Vaga { // Ex: Pequena, Média, Grande
     private double valorDesconto; // Valor do desconto específico para a vaga comum
 
+
     public VagaComum(int fila, int numero, String tipoDesconto, double valorDesconto) {
         super(fila, numero, tipoDesconto); // Chama o construtor da classe Vaga
         this.valorDesconto = valorDesconto;
