@@ -15,7 +15,7 @@ public class Main {
         estacionamento = new Estacionamento("Estacionamento Central", 3, 5);
         clientes = new ArrayList<>();
 
-        // Criação da interface gráfica
+
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Estacionamento");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -23,12 +23,12 @@ public class Main {
             frame.setLayout(new GridBagLayout());
             frame.getContentPane().setBackground(new Color(215, 230, 219));
 
-            // Título
+
             JLabel titleLabel = new JLabel("Xulambs", SwingConstants.CENTER);
             titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 20));
             titleLabel.setForeground(new Color(96, 96, 96)); 
             GridBagConstraints gbcTitle = new GridBagConstraints();
-            gbcTitle.gridwidth = 2; // Ocupa duas colunas
+            gbcTitle.gridwidth = 2; 
             gbcTitle.insets = new Insets(10, 10, 10, 10);
             frame.add(titleLabel, gbcTitle);
 
@@ -38,7 +38,7 @@ public class Main {
             gbcButton.fill = GridBagConstraints.HORIZONTAL;
             gbcButton.insets = new Insets(5, 5, 5, 5);
 
-            // Adicionando botões com ícones
+
             gbcButton.gridx = 0;
             gbcButton.gridy = 0;
             buttonPanel.add(criarBotao("Adicionar Cliente", "src/icons/add_client.png", e -> adicionarCliente()), gbcButton);
@@ -62,21 +62,21 @@ public class Main {
 
             gbcButton.gridx = 0;
             gbcButton.gridy = 3;
-            gbcButton.gridwidth = 2; // Ocupa duas colunas
+            gbcButton.gridwidth = 2; 
             JButton btnSair = criarBotao("Sair do Programa", "src/icons/exit.png", e -> System.exit(0));
             buttonPanel.add(btnSair, gbcButton);
 
-            // Adicionando o painel de botões ao frame
+   
             gbcButton.gridx = 0;
             gbcButton.gridy = 1;
-            gbcButton.gridwidth = 2; // Ocupa duas colunas
+            gbcButton.gridwidth = 2; 
             frame.add(buttonPanel, gbcButton);
 
             // Barra de status
             statusBar = new JLabel("Pronto");
-            statusBar.setForeground(new Color(0, 51, 102)); // Texto escuro
-            statusBar.setBackground(new Color(235, 242, 237)); // Fundo claro
-            statusBar.setOpaque(false); // Para mostrar a cor de fundo
+            statusBar.setForeground(new Color(0, 51, 102)); 
+            statusBar.setBackground(new Color(235, 242, 237)); 
+            statusBar.setOpaque(false); 
             gbcButton.gridy = 2;
             frame.add(statusBar, gbcButton);
 
@@ -88,14 +88,14 @@ public class Main {
         JButton button = new JButton(texto);
         button.setFont(new Font("Times New Roman", Font.PLAIN, 16));
         button.setBackground(new Color(174, 204, 183));
-        button.setForeground(Color.WHITE); // Cor do texto em branco
+        button.setForeground(Color.WHITE); 
         button.setFocusPainted(false);
         button.setBorder(BorderFactory.createLineBorder(new Color(29, 78, 49), 2)); 
 
         // Adicionando o ícone
         ImageIcon icon = new ImageIcon(caminhoIcone);
         button.setIcon(icon);
-        button.setHorizontalTextPosition(SwingConstants.RIGHT); // Texto à direita do ícone
+        button.setHorizontalTextPosition(SwingConstants.RIGHT); 
         button.addActionListener(acao);
         return button;
     }
