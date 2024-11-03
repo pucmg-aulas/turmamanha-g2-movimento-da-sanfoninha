@@ -1,117 +1,84 @@
 package view;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class HomeView extends JFrame {
-
-    private JMenuBar jMenuBar = new JMenuBar();
-    private JMenu menuAdicionar = new JMenu();
-    private JMenu menuExibir = new JMenu();
-    private JMenuItem menuItemAddEstacionamento = new JMenuItem();
-    private JMenuItem menuItemAddVaga = new JMenuItem();
-    private JMenuItem menuItemAddVeiculo = new JMenuItem();
-    private JMenuItem menuItemAddCliente = new JMenuItem();
-    private JMenuItem menuItemGerenciarVagas = new JMenuItem();
-    private JMenuItem menuItemGerenciarClientes = new JMenuItem();
-    private JMenuItem menuItemGerenciarEstacionamentos = new JMenuItem();
-    private JMenuItem buttonExitMenu = new JMenuItem();
-    private JComboBox<String> estacionamentoComboBox = new JComboBox<>();
+    private JButton btnAdicionarCliente;
+    private JButton btnGerenciarVagas;
+    private JButton btnGerenciarEstacionamento;
+    private JButton btnListarClientes;
+    private JButton btnListarVagas;
+    private JButton btnListarEstacionamentos;
+    private JButton btnHistorico;
 
     public HomeView() {
-        initComponents();
-        setTitle("Xulambs Parking");
-        setLocationRelativeTo(null);
+        setTitle("Sistema de Estacionamento - Home");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new GridLayout(3, 2, 10, 10));
+
+        // Inicializa os botões
+        btnAdicionarCliente = new JButton("Adicionar Cliente");
+        btnGerenciarVagas = new JButton("Gerenciar Vagas");
+        btnGerenciarEstacionamento = new JButton("Gerenciar Estacionamento");
+        btnListarClientes = new JButton("Listar Clientes");
+        btnListarVagas = new JButton("Listar Vagas");
+        btnListarEstacionamentos = new JButton("Listar Estacionamentos");
+        btnHistorico = new JButton("Histórico");
+
+        // Adiciona ActionListeners para abrir cada view correspondente
+        btnAdicionarCliente.addActionListener(e -> abrirAdicionarClienteView());
+        btnGerenciarVagas.addActionListener(e -> abrirAddVeiculoView());
+        btnGerenciarEstacionamento.addActionListener(e -> abrirGerenciarEstacionamentoView());
+        btnListarClientes.addActionListener(e -> abrirListarClientesView());
+        btnListarVagas.addActionListener(e -> abrirListarVagasView());
+        btnListarEstacionamentos.addActionListener(e -> abrirListarEstacionamentosView());
+        btnHistorico.addActionListener(e -> abrirHistoricoView());
+
+        // Adiciona os botões à janela
+        add(btnAdicionarCliente);
+        add(btnGerenciarVagas);
+        add(btnGerenciarEstacionamento);
+        add(btnListarClientes);
+        add(btnListarVagas);
+        add(btnListarEstacionamentos);
+        add(btnHistorico);
     }
 
-    public JComboBox<String> getEstacionamentoComboBox() {
-        return estacionamentoComboBox;
+    // Métodos para abrir as diferentes views
+   
+    private void abrirHistoricoView() {
+        Historico historico = new Historico();
+        historico.setVisible(true);
     }
 
-    public void setEstacionamentoComboBox(JComboBox<String> estacionamentoComboBox) {
-        this.estacionamentoComboBox = estacionamentoComboBox;
+    private void abrirAdicionarClienteView() {
+        AddClienteView adicionarClienteView = new AddClienteView();
+        adicionarClienteView.setVisible(true);
     }
 
-    public JMenuItem getMenuItemAddEstacionamento() {
-        return menuItemAddEstacionamento;
+    private void abrirAddVeiculoView() {
+        AddVeiculoView AddVeiculoView = new AddVeiculoView();
+        AddVeiculoView.setVisible(true);
     }
 
-    public JMenuItem getMenuItemAddVaga() {
-        return menuItemAddVaga;
+    private void abrirGerenciarEstacionamentoView() {
+        AddEstacionamentoView gerenciarEstacionamentoView = new AddEstacionamentoView();
+        gerenciarEstacionamentoView.setVisible(true);
     }
 
-    public JMenuItem getMenuItemAddVeiculo() {
-        return menuItemAddVeiculo;
-    }
-    public JMenuItem getMenuItemAddCliente() {
-        return menuItemAddCliente;
+    private void abrirListarClientesView() {
+        ListarClientesView listarClientesView = new ListarClientesView();
+        listarClientesView.setVisible(true);
     }
 
-    public JMenuItem getMenuItemGerenciarVagas() {
-        return menuItemGerenciarVagas;
+    private void abrirListarVagasView() {
+        ListarVagaView listarVagasView = new ListarVagaView();
+        listarVagasView.setVisible(true);
     }
 
-    public JMenuItem getMenuItemGerenciarClientes() {
-        return menuItemGerenciarClientes;
-    }
-
-    public JMenuItem getMenuItemGerenciarEstacionamentos() {
-        return menuItemGerenciarEstacionamentos;
-    }
-
-    public JMenuItem getButtonExitMenu() {
-        return buttonExitMenu;
-    }
-
-    private void initComponents() {
-
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-        menuAdicionar.setText("Adicionar");
-        menuAdicionar.add(menuItemAddEstacionamento);
-        menuAdicionar.add(menuItemAddCliente);
-        menuAdicionar.add(menuItemAddVaga);
-        menuAdicionar.add(menuItemAddVeiculo);
-
-        menuExibir.setText("Exibir");
-        menuExibir.add(menuItemGerenciarVagas);
-        menuExibir.add(menuItemGerenciarClientes);
-        menuExibir.add(menuItemGerenciarEstacionamentos);
-
-        menuItemAddEstacionamento.setText("Estacionamento");
-        menuItemAddCliente.setText("Cliente");
-        menuItemAddVeiculo.setText("Veículo");
-        menuItemAddVaga.setText("Vaga");
-
-        menuItemGerenciarVagas.setText("Vagas");
-        menuItemGerenciarClientes.setText("Clientes");
-        menuItemGerenciarEstacionamentos.setText("Estacionamentos");
-
-        buttonExitMenu.setText("Sair");
-
-        buttonExitMenu.setHorizontalAlignment(SwingConstants.RIGHT);
-
-        jMenuBar.add(menuAdicionar);
-        jMenuBar.add(menuExibir);
-        jMenuBar.add(estacionamentoComboBox);
-        jMenuBar.add(buttonExitMenu);
-
-        setJMenuBar(jMenuBar);
-
-        setLayout(new FlowLayout());
-        add(new JLabel("Bem vindo ao Xulambs Parking!"));
-
-        setPreferredSize(new Dimension(400, 300));
-
-        pack();
-    }
-
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new HomeView().setVisible(true);
-            }
-        });
+    private void abrirListarEstacionamentosView() {
+        ListarEstacionamentosView listarEstacionamentosView = new ListarEstacionamentosView();
+        listarEstacionamentosView.setVisible(true);
     }
 }
