@@ -8,6 +8,12 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Estacionamento estacionamento = new Estacionamento("Estacionamento Central", 3, 5);
         List<Cliente> clientes = new ArrayList<>();
+        SwingUtilities.invokeLater(() -> {
+            HomeView homeView = new HomeView();
+            homeView.setVisible(true);
+        });
+        
+
 
         while (true) {
             System.out.println("\n--- Menu do Estacionamento ---");
