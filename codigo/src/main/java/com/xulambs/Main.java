@@ -14,8 +14,6 @@ public class Main {
             HomeView homeView = new HomeView();
             homeView.setVisible(true);
         });
-        
-
 
         while (true) {
             System.out.println("\n--- Menu do Estacionamento ---");
@@ -25,9 +23,10 @@ public class Main {
             System.out.println("4. Sair do Estacionamento");
             System.out.println("5. Mostrar Vagas Disponíveis");
             System.out.println("6. Calcular Valor de Uso");
+            System.out.println("7. Calcular Valor Médio por Utilização");
             System.out.println("0. Sair do Programa");
             System.out.print("Escolha uma opção: ");
-            
+
             int opcao = scanner.nextInt();
             scanner.nextLine(); // Consumir a quebra de linha
 
@@ -101,7 +100,12 @@ public class Main {
                     // Sair do Estacionamento
                     System.out.print("Digite a placa do veículo que deseja retirar: ");
                     String placaSair = scanner.nextLine();
-                    estacionamento.sair(placaSair);
+                    System.out.print("Digite o valor por hora: ");
+                    double valorHoraSair = scanner.nextDouble();
+                    System.out.print("Digite a quantidade de horas usadas: ");
+                    int horasUsadasSair = scanner.nextInt();
+                    scanner.nextLine(); // Consumir a quebra de linha
+                    estacionamento.sair(placaSair, valorHoraSair, horasUsadasSair);
                     break;
 
                 case 5:
@@ -125,6 +129,12 @@ public class Main {
                     int horasUsadas = scanner.nextInt();
                     double valorTotal = estacionamento.valorPorUso(placaCalcular, valorPorHora, horasUsadas);
                     System.out.println("Valor total a ser pago: R$ " + valorTotal);
+                    break;
+
+                case 7:
+          
+                    double valorMedio = estacionamento.calcularValorMedioPorUtilizacao();
+                    System.out.println("Valor médio por utilização: R$ " + valorMedio);
                     break;
 
                 case 0:
