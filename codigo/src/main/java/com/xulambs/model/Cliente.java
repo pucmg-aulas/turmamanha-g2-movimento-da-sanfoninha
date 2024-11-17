@@ -1,6 +1,9 @@
 package com.xulambs.model;
 
 import java.util.ArrayList;
+import com.xulambs.model.Veiculo;
+import com.xulambs.model.Vaga;
+import com.xulambs.model.Estacionamento;
 
 public class Cliente {
     private String nome;
