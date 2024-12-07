@@ -1,0 +1,23 @@
+INSERT INTO Cliente (CPF, Nome, Anonimo) VALUES
+('12345678901', 'João Silva', 0),
+('98765432100', 'Maria Oliveira', 1),
+('11122233344', 'Carlos Souza', 0),
+('11223344556', 'Anônimo', 1);
+
+INSERT INTO VAGA (NUMERO, FILA, TIPO, VALOR) VALUES 
+(1, 'A', 'IDOSO', 10.00),
+(2, 'A', 'VIP', 15.00),
+(3, 'B', 'PCD', 12.00);
+
+INSERT INTO Estacionamento (Nome, Quantidade_Vagas, Vagas_Por_Fila) VALUES 
+('Xulambs', 100, 10);
+
+INSERT INTO VEICULO (PLACA, CPF_CLIENTE) VALUES 
+('ABC1234', '12345678901'),
+('XYZ9876', '98765432100'),
+('QWE4567', '11223344556');
+
+INSERT INTO UsoDeVaga (Placa, Fila, Numero, Entrada, Saida, ValorPago) VALUES 
+('ABC1234', 'A', 1, '2024-12-01 08:00:00', '2024-12-01 12:00:00', 40.00),
+('XYZ9876', 'A', 2, '2024-12-01 09:00:00', '2024-12-01 11:30:00', 37.50),
+('QWE4567', 'B', 3, '2024-12-01 10:00:00', NULL, NULL);
