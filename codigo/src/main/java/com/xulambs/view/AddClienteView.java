@@ -1,10 +1,19 @@
-package view;
+package com.xulambs.view;
+
+import com.xulambs.controllers.ClienteController;
+import com.xulambs.model.Cliente;
 
 import javax.swing.*;
-import main.java.com.xulambs.controller.ClienteController;
-import main.java.com.xulambs.DAO.ClienteDAO;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import javax.swing.text.MaskFormatter;
+
 
 public class AddClienteView extends JFrame {
+
+    private ClienteController controller;
 
     private JPanel jPanel = new JPanel();
     private JToggleButton buttonCancelar = new JToggleButton("Cancelar");
@@ -13,104 +22,123 @@ public class AddClienteView extends JFrame {
     private JLabel cpfClienteRotulo = new JLabel("CPF Cliente");
     private JLabel categoriaClienteRotulo = new JLabel("Categoria Cliente");
     private JTextField textNomeCliente = new JTextField();
-    private JTextField textCpfCliente = new JTextField();
-    private JTextField textCategoriaCliente = new JTextField();
+    private JFormattedTextField textCpfCliente;
+    private JComboBox<String> comboBoxCategoria;
 
-    public AddClienteView() {
+
+    public AddClienteView(ClienteController controller) {
+        this.controller = controller;
         initComponents();
         setTitle("Xulambs Parking - Adicionar Cliente");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setSize(300, 250);
+
+
     }
 
-    public JTextField getTextNomeCliente() {
-        return textNomeCliente;
-    }
-
-    public JTextField getTextCpfCliente() {
-        return textCpfCliente;
-    }
-
-    public JTextField getTextCategoriaCliente() {
-        return textCategoriaCliente;
-    }
-
-    public JToggleButton getButtonCancelar() {
-        return buttonCancelar;
-    }
-
-    public JToggleButton getButtonSalvar() {
-        return buttonSalvar;
-    }
 
     private void initComponents() {
-        GroupLayout jPanelLayout = new GroupLayout(jPanel);
-        jPanel.setLayout(jPanelLayout);
 
-        jPanelLayout.setHorizontalGroup(
-            jPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(textNomeCliente)
-                        .addComponent(textCpfCliente)
-                        .addComponent(textCategoriaCliente)
-                        .addGroup(jPanelLayout.createSequentialGroup()
-                            .addGroup(jPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addComponent(nomeClienteRotulo)
-                                .addComponent(cpfClienteRotulo)
-                                .addComponent(categoriaClienteRotulo))
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
-                            .addGap(0, 112, Short.MAX_VALUE)
-                            .addComponent(buttonCancelar)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonSalvar)))
-                    .addContainerGap())
-        );
+        //Painel
+        jPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
 
-        jPanelLayout.setVerticalGroup(
-            jPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(nomeClienteRotulo)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(textNomeCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(cpfClienteRotulo)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(textCpfCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(categoriaClienteRotulo)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(textCategoriaCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonSalvar)
-                        .addComponent(buttonCancelar))
-                    .addContainerGap())
-        );
+        //Nome
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        jPanel.add(nomeClienteRotulo, gbc);
 
-        GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        );
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        jPanel.add(textNomeCliente, gbc);
 
-        pack();
+
+        //CPF
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.NONE;
+        jPanel.add(cpfClienteRotulo, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        try {
+            MaskFormatter mask = new MaskFormatter("###.###.###-##");
+            textCpfCliente = new JFormattedTextField(mask);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            textCpfCliente = new JFormattedTextField();
+        }
+        jPanel.add(textCpfCliente, gbc);
+
+
+
+        //Categoria
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        jPanel.add(categoriaClienteRotulo, gbc);
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        String[] categorias = {"Comum", "VIP", "Idoso", "PCD"};
+        comboBoxCategoria = new JComboBox<>(categorias);
+        jPanel.add(comboBoxCategoria, gbc);
+
+
+        //Botões
+        JPanel painelBotoes = new JPanel();
+        painelBotoes.add(buttonCancelar);
+        painelBotoes.add(buttonSalvar);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2; //Dois botões na mesma linha
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        jPanel.add(painelBotoes, gbc);
+
+
+
+
+        add(jPanel);
+
+
+        buttonSalvar.addActionListener(e -> {
+            salvarCliente();
+        });
+
+        buttonCancelar.addActionListener(e -> {
+            dispose();
+        });
+
     }
 
-    public static void main(String[] args) {
-        AddClienteView addClienteView = new AddClienteView();
-        ClienteDAO clienteDAO = new ClienteDAO();
-        
-        new ClienteController(addClienteView, clienteDAO);
-        
-        addClienteView.setVisible(true);
+
+
+
+    private void salvarCliente(){
+            controller.salvarCliente(textNomeCliente.getText(), textCpfCliente.getText(), (String) comboBoxCategoria.getSelectedItem());
     }
+
+
+    public void limparCampos() {
+        textNomeCliente.setText("");
+        textCpfCliente.setText("");
+        comboBoxCategoria.setSelectedIndex(0); // Seleciona o primeiro item por padrão
+    }
+
+
+
+    public void preencherCampos(Cliente cliente) {
+        textNomeCliente.setText(cliente.getNome());
+        textCpfCliente.setText(cliente.getCpf());
+        comboBoxCategoria.setSelectedItem(cliente.getCategoria());
+    }
+
 }

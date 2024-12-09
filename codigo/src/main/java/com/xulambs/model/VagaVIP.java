@@ -1,46 +1,29 @@
 package com.xulambs.model;
 
 public class VagaVIP extends Vaga {
-    private double valorDesconto; // Valor do desconto específico para a vaga VIP
+    private double valorAcrescimo; // Acréscimo, não desconto
+    private String tamanho;
 
-    public VagaVIP(int fila, int numero, String tipoDesconto, boolean necessitaAcompanhante, double valorDesconto) {
-            super(fila, numero, tipoDesconto); // Chama o construtor da classe Vaga
-            this.valorDesconto = valorDesconto;
+    public VagaVIP(int fila, int numero, String tamanho, double precoBase, double valorAcrescimo) {
+        super(fila, numero, "VIP", precoBase);
+        this.tamanho = tamanho;
+        this.valorAcrescimo = valorAcrescimo;
     }
 
-    public double getValorDesconto() {
-        return valorDesconto;
+
+    public String getTamanho() { return tamanho; }
+    public void setTamanho(String tamanho) { this.tamanho = tamanho; }
+    public double getValorAcrescimo() { return valorAcrescimo; }
+    public void setValorAcrescimo(double valorAcrescimo) { this.valorAcrescimo = valorAcrescimo; }
+
+    @Override
+    public double calcularValor() {
+        double valor = super.calcularValor();
+        return valor + valorAcrescimo;
     }
     
-
-    public void setValorDesconto(double valorDesconto) {
-        this.valorDesconto = valorDesconto;}
-
-
-    // Método para estacionar um veículo, verificando se a vaga é destinada para VIP
-    @Override
-    public boolean estacionar(Veiculo veiculo) {
-        if (isDisponivel() && veiculo.isVip()) { // Verifica se o veículo pertence a um cliente VIP
-            super.estacionar(veiculo, Cliente); // Chama o método da classe pai para estacionar
-            System.out.println("Estacionamento reservado para VIP. Aumento aplicado: R$ " + valorDesconto);
-            return true;
-        }
-        System.out.println("A vaga é destinada para VIP.");
-        return false;
-    }
-
-    // Método para pegar as informações completas da vaga VIP
-    public String getInformacoesVagaVIP() {
-        String info = "Vaga VIP - Fila: " + getFila() + ", Número: " + getNumero() + 
-                      ", Disponível: " + isDisponivel() + 
-                      ", Tamanho: " + tamanho + 
-                      ", Valor do Desconto: R$ " + valorDesconto; 
-        
-        if (!isDisponivel()) {
-            info += ", Veículo: " + getVeiculo().getModelo() + ", Cliente: " + getCliente().getNome();
-        }
-        
-        return info;
+        @Override
+    public String getIdentificacao(){
+        return super.getIdentificacao() +  " - Tamanho: "+ tamanho;
     }
 }
-

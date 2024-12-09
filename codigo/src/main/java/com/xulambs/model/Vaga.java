@@ -1,74 +1,69 @@
 package com.xulambs.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import com.xulambs.model.Cliente;
+import java.time.LocalDateTime;
+import java.time.Duration;
+import java.util.UUID;
 
-//classe abstrata
-public class Vaga {
+public abstract class Vaga {
+    private UUID id;
     private int fila;
     private int numero;
-    private boolean disponivel;
+    private String tipoVaga;
+    private double preco;
+    private boolean ocupada;
+    private LocalDateTime horaEntrada;
+    private LocalDateTime horaSaida;
     private Veiculo veiculo;
-    private Cliente cliente;
-    private double ValorDesconto;
 
-    public Vaga(int fila, int numero) {
-    this.fila = fila;
-    this.numero = numero;
-    this.disponivel = true;
-    }
 
-    public int getFila() {
-        return fila;
+    public Vaga(int fila, int numero, String tipoVaga, double preco) {
+        this.id = UUID.randomUUID();
+        this.fila = fila;
+        this.numero = numero;
+        this.tipoVaga = tipoVaga;
+        this.preco = preco;
+        this.ocupada = false;
     }
 
-    public int getNumero() {
-        return numero;
-    }
-    
-    public Veiculo getVeiculo() {
-        return veiculo;
-    }
+    // Getters e Setters
+    public UUID getId() { return id; }
+    public int getFila() { return fila; }
+    public int getNumero() { return numero; }
+    public String getTipoVaga() { return tipoVaga; }
+    public double getPreco() { return preco; }
+    public boolean isOcupada() { return ocupada; }
+    public LocalDateTime getHoraEntrada() { return horaEntrada; }
+    public LocalDateTime getHoraSaida() { return horaSaida; }
+    public Veiculo getVeiculo() { return veiculo;}
+    public String getIdentificacao() { return "Fila " + fila + ", Vaga " + numero + " (" + tipoVaga + ")"; }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public double getValorDesconto() {
-        return valorDesconto;
-    }
-
-    public void setValorDesconto(double valorDesconto) {
-        this.valorDesconto = valorDesconto;
-    }
-    
-    public void setVeiculo(Veiculo veiculo) {
+    public void estacionar(Veiculo veiculo) {
+        if (ocupada) {
+            throw new Estacionamento.VagaOcupadaException("Vaga já ocupada.");
+        }
         this.veiculo = veiculo;
+        this.ocupada = true;
+        this.horaEntrada = LocalDateTime.now();
     }
 
-    public boolean estacionar(Veiculo veiculo, Cliente cliente) {
-        if (disponivel) {
-            this.veiculo = veiculo;
-            this.cliente = cliente;
-            disponivel = false;
-            return true;
+    public double sair() {
+        if (!ocupada) {
+            throw new Estacionamento.VagaInvalidaException("Vaga já está livre.");
         }
-        return false;
+        this.horaSaida = LocalDateTime.now();
+        double valor = calcularValor();
+        this.ocupada = false;
+        this.veiculo = null;
+        return valor;
     }
 
-    public boolean sair() {
-        if (!disponivel) {
-            this.veiculo = null;
-            this.cliente = null;
-            disponivel = true;
-            return true;
-        }
-        return false;
+    public abstract double calcularValor(); // Método abstrato para cálculo do valor, considerando descontos/acréscimos
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public boolean isDisponivel() {
-        return disponivel;
+    public void setIdentificacao(String identificacao) {
+        this.identificacao = identificacao;
     }
 }

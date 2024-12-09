@@ -1,97 +1,82 @@
 package com.xulambs.model;
 
 import java.util.ArrayList;
-import com.xulambs.model.Veiculo;
-import com.xulambs.model.Vaga;
-import com.xulambs.model.Estacionamento;
+import java.util.List;
+import java.util.UUID;
 
 public class Cliente {
+    private UUID id;
     private String nome;
     private String cpf;
-    private ArrayList<Veiculo> veiculos;
-    private boolean anonimo;
-    private String categoria; // Novo atributo
+    private String categoria;
+    private List<Veiculo> veiculos;
+    private List<HistoricoUso> historicoUso;
 
     public Cliente(String nome, String cpf, String categoria) {
+        this.id = UUID.randomUUID();
         this.nome = nome;
         this.cpf = cpf;
+        this.categoria = categoria;
         this.veiculos = new ArrayList<>();
-        this.anonimo = false;
-        this.categoria = categoria; // Inicializa a categoria
+        this.historicoUso = new ArrayList<>();
+
+        // Validações (implemente as validações de CPF e categoria aqui ou no Controller)
+        if (cpf == null || !cpf.matches("\\d{11}")) {  // Validação básica de CPF (11 dígitos)
+            throw new IllegalArgumentException("CPF inválido.");
+        }
+
     }
 
-    public Cliente() {
-        this.nome = "Anônimo";
-        this.cpf = "00000000000";  // Exemplo de CPF fictício para cliente anônimo
-        this.veiculos = new ArrayList<>();
-        this.anonimo = true;
-        this.categoria = "Anônimo"; // Categoria para anônimo
-    }
+
+    // Getters e Setters (para todos os atributos)
+    public UUID getId() { return id; }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
+    public String getCpf() { return cpf; }
+    public void setCpf(String cpf) { this.cpf = cpf;} //Validação no controller
+    public String getCategoria() { return categoria; }
+    public void setCategoria(String categoria) {this.categoria = categoria; }//Validação no controller
+    public List<Veiculo> getVeiculos() { return new ArrayList<>(veiculos); } //Retorna cópia
+    public List<HistoricoUso> getHistoricoUso() { return new ArrayList<>(historicoUso); } //Retorna cópia
+
+
 
     public void adicionarVeiculo(Veiculo veiculo) {
-        veiculos.add(veiculo);
-        System.out.println("Veículo " + veiculo.getPlaca() + " adicionado ao cliente " + nome);
+        this.veiculos.add(veiculo);
     }
 
     public void removerVeiculo(Veiculo veiculo) {
-        if (veiculos.contains(veiculo)) {
-            veiculos.remove(veiculo);
-            System.out.println("Veículo " + veiculo.getPlaca() + " removido do cliente " + nome);
-        } else {
-            System.out.println("O cliente não possui esse veículo.");
-        }
+        this.veiculos.remove(veiculo);
     }
 
-    public boolean isAnonimo() {
-        return anonimo;
+
+    public boolean isVip() {
+        return this.categoria != null && this.categoria.equalsIgnoreCase("VIP");
     }
 
-    public void ocuparVaga(Estacionamento estacionamento, Vaga vaga, Veiculo veiculo) {
-        if (veiculos.contains(veiculo)) {
-            if (estacionamento.ocuparVaga(vaga, veiculo)) {
-                System.out.println("Veículo " + veiculo.getPlaca() + " ocupou a vaga " + vaga.getIdentificador());
-            } else {
-                System.out.println("A vaga " + vaga.getIdentificador() + " já está ocupada.");
-            }
-        } else {
-            System.out.println("O veículo " + veiculo.getPlaca() + " não está registrado para o cliente " + nome);
-        }
+    public boolean isIdoso() {
+        return this.categoria != null && this.categoria.equalsIgnoreCase("IDOSO");
     }
 
-    public void liberarVaga(Estacionamento estacionamento, Vaga vaga) {
-        if (vaga.isOcupada()) {
-            estacionamento.liberarVaga(vaga);
-            System.out.println("Vaga " + vaga.getIdentificador() + " foi liberada.");
-        } else {
-            System.out.println("A vaga " + vaga.getIdentificador() + " já está desocupada.");
-        }
+    public boolean isPcd() {
+        return this.categoria != null && this.categoria.equalsIgnoreCase("PCD");
     }
 
-    public String getNome() {
-        return nome;
+    public void adicionarHistoricoUso(HistoricoUso historico) {
+        this.historicoUso.add(historico);
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    public String getCpf() {
-        return cpf;
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", categoria='" + categoria + '\'' +
+                '}';
     }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public ArrayList<Veiculo> getVeiculos() {
-        return veiculos;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-}
+} 

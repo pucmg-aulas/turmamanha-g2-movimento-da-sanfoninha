@@ -1,73 +1,67 @@
- package com.xulambs.model;
+package com.xulambs.model;
 
- import java.time.LocalDateTime;
- import java.time.Duration;
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+import main.exceptions.UsoDeVagaException;
+
+public class UsoDeVaga {
+    private static final int MINUTOS_POR_FRACAO = 15;
+    private static final double VALOR_FRACAO = 4.0;
+    private static final double VALOR_MAXIMO = 50.0;
+
+    private Vaga vaga;
+    private LocalDateTime entrada;
+    private LocalDateTime saida;
+    private double valorPago;
+
+    public UsoDeVaga(Vaga vaga) {
+        if (vaga == null) {
+            throw new IllegalArgumentException("Vaga não pode ser nula.");
+        }
+        this.vaga = vaga;
+        this.entrada = LocalDateTime.now();
+    }
+
+    public Vaga getVaga() { return vaga; }
+    public LocalDateTime getEntrada() { return entrada; }
+    public LocalDateTime getSaida() { return saida; }
+    public void setSaida(LocalDateTime saida) { this.saida = saida; }
+    public double getValorPago() { return valorPago; }
 
 
- public class UsoDeVaga {
-     private static final double FRACAO_USO = 0.15;
-     private static final double VALOR_FRACAO = 4.0;
-     private static final double VALOR_MAXIMO = 50.0;
-    
-     private Vaga vagas;
-     private LocalDateTime entrada;
-     private LocalDateTime saida;
-     private double valorPago;
-    
-     public UsoDeVaga(Vaga vaga) {
-         this.vaga = vaga;
-         this.entrada = LocalDateTime.now();
-     }
+    public double calcularValorPago() {
+        if (saida == null || entrada == null) {
+            throw new IllegalStateException("Entrada ou saída não definida.");
+        }
+        if (saida.isBefore(entrada)) {
+            throw new IllegalArgumentException("A saída não pode ser anterior à entrada.");
+        }
 
-     public void calcularValorPago() {
-         this.saida = LocalDateTime.now();
-         Duration duracao = Duration.between(entrada, saida);
-         long minutos = duracao.toMinutes();
-         long fracoes = minutos / 15;
-        
-         valorPago = fracoes * VALOR_FRACAO;
-        
-         if (valorPago > VALOR_MAXIMO) {
-             valorPago = VALOR_MAXIMO;
-         }
+        Duration duracao = Duration.between(entrada, saida);
+        long minutos = duracao.toMinutes();
+        long fracoes = minutos / MINUTOS_POR_FRACAO;
 
-         switch (vaga.getTipoVaga()) {
-             case "IDOSO":
-                 valorPago -= valorPago * 0.15; 
-                 break;
-             case "PCD":
-                 valorPago -= valorPago * 0.13;  
-                 break;
-             case "VIP":
-                 valorPago += valorPago * 0.20;  
-                 break;
-             default:
-                 break;
-         }
-     }
+        valorPago = fracoes * VALOR_FRACAO;
 
-     public LocalDateTime getEntrada() {
-         return entrada;
-     }
+        if (valorPago > VALOR_MAXIMO) {
+            valorPago = VALOR_MAXIMO;
+        }
 
-     public LocalDateTime getSaida() {
-         return saida;
-     }
+        return valorPago;
+    }
 
-     public double getValorPago() {
-         return valorPago;
-     }
+    @Override
+    public String toString() {
+        return "UsoDeVaga [vaga=" + vaga.getIdentificacao() + ", entrada=" + entrada + ", saída=" + saida + ", valorPago=" + valorPago + "]";
+    }
+public void reservarVaga(String placa, int numero, char fila) throws UsoDeVagaException {
+        if (placa == null || placa.isEmpty()) {
+            throw new UsoDeVagaException("A placa do veículo é obrigatória para reservar uma vaga.");
+        }
 
-     public Vaga getVaga() {
-         return vaga;
-     }
-    
-     public void setSaida(LocalDateTime saida) {
-         this.saida = saida;
-     }
+        // Outras validações ou lógica
+    }
+}
 
-     @Override
-     public String toString() {
-         return "UsoDeVaga [vaga=" + vaga.getIdentificacao() + ", entrada=" + entrada + ", saida=" + saida + ", valorPago=" + valorPago + "]";
-     }
- }
+}
